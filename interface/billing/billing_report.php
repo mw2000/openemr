@@ -327,7 +327,6 @@ $partners = $x->_utility_array($x->x12_partner_factory());
             <?php } ?>
             f.bn_hcfa_txt_file.disabled = !can_generate;
             f.bn_reopen.disabled = !can_bill;
-            <?php } ?>
             f.bn_mark.disabled = !can_mark;
         }
 
