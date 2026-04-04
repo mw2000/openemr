@@ -962,11 +962,21 @@ $session = SessionWrapperFactory::getInstance()->getActiveSession();
                             if ($_FILES['form_erafile']['size']) {
                                 $tmp_name = $_FILES['form_erafile']['tmp_name'];
 
-                                // Handle .zip extension if present.  Probably won't work on Windows.
+                                // Handle .zip extension if present.
                                 if (strtolower(substr((string) $_FILES['form_erafile']['name'], -4)) == '.zip') {
-                                    rename($tmp_name, "$tmp_name.zip");
-                                    exec("unzip -p " . escapeshellarg($tmp_name . ".zip") . " > " . escapeshellarg((string) $tmp_name));
-                                    unlink("$tmp_name.zip");
+                                    $zip = new ZipArchive();
+                                    if ($zip->open($tmp_name) === true) {
+                                        $contents = $zip->getFromIndex(0);
+                                        $zip->close();
+                                        if ($contents === false) {
+                                            $alertmsg .= xl("Unable to read file from ZIP archive") . " ";
+                                            $contents = '';
+                                        }
+
+                                        file_put_contents($tmp_name, $contents);
+                                    } else {
+                                        $alertmsg .= xl("Unable to open ZIP archive") . " ";
+                                    }
                                 }
 
                                 echo "<!-- Notes from ERA upload processing:\n";

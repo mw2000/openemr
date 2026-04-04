@@ -120,11 +120,21 @@ elseif (!empty($_FILES['form_erafile']['size'])) {
     if (!is_string($tmp_name)) {
         $alertmsg .= xl("Invalid file upload") . " ";
     } else {
-        // Handle .zip extension if present.  Probably won't work on Windows.
+        // Handle .zip extension if present.
         if (strtolower(substr((string) $_FILES['form_erafile']['name'], -4)) == '.zip') {
-            rename($tmp_name, "$tmp_name.zip");
-            exec("unzip -p " . escapeshellarg($tmp_name . ".zip") . " > " . escapeshellarg($tmp_name));
-            unlink("$tmp_name.zip");
+            $zip = new ZipArchive();
+            if ($zip->open($tmp_name) === true) {
+                $contents = $zip->getFromIndex(0);
+                $zip->close();
+                if ($contents === false) {
+                    $alertmsg .= xl("Unable to read file from ZIP archive") . " ";
+                    $contents = '';
+                }
+
+                file_put_contents($tmp_name, $contents);
+            } else {
+                $alertmsg .= xl("Unable to open ZIP archive") . " ";
+            }
         }
         $alertmsg .= ParseERA::parseERA($tmp_name, 'era_payments_callback');
 
