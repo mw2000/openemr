@@ -187,8 +187,6 @@ class BillingProcessor
             $processing_task = new Tasks\GeneratorUB04NoForm($this->extractAction());
         } elseif (isset($post['bn_process_ub04_form'])) {
             $processing_task = new Tasks\GeneratorUB04Form_PDF($this->extractAction());
-        } elseif (isset($post['bn_external'])) {
-            $processing_task = new Tasks\GeneratorExternal($this->extractAction());
         }
 
         // If the processing task can write to the billing log, let's set it's log
