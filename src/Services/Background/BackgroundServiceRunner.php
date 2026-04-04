@@ -173,11 +173,15 @@ class BackgroundServiceRunner
             false,
         );
 
-        if ($row !== false && ($row['running'] ?? '0') == 1) {
+        if ($row === false) {
+            return 'error';
+        }
+
+        if (($row['running'] ?? '0') == 1) {
             return 'already_running';
         }
 
-        return 'not_due';
+        return $force ? 'already_running' : 'not_due';
     }
 
     protected function releaseLock(string $serviceName): void
