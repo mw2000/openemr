@@ -136,7 +136,10 @@ elseif (!empty($_FILES['form_erafile']['size'])) {
                 $alertmsg .= xl("Unable to open ZIP archive") . " ";
             }
         }
-        $alertmsg .= ParseERA::parseERA($tmp_name, 'era_payments_callback');
+        $parseResult = ParseERA::parseERA($tmp_name, 'era_payments_callback');
+        if (is_string($parseResult)) {
+            $alertmsg .= $parseResult;
+        }
 
         // Ensure the ERA directory exists
         $eraDir = OEGlobalsBag::getInstance()->getString('OE_SITE_DIR') . "/documents/era";
