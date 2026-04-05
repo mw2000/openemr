@@ -177,7 +177,7 @@ class BackgroundServiceRunner
             return 'error';
         }
 
-        if (($row['running'] ?? '0') == 1) {
+        if (($row['running'] ?? '0') === '1') {
             return 'already_running';
         }
 
