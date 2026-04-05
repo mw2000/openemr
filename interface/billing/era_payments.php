@@ -120,6 +120,7 @@ elseif (!empty($_FILES['form_erafile']['size'])) {
     if (!is_string($tmp_name)) {
         $alertmsg .= xl("Invalid file upload") . " ";
     } else {
+        $shouldParseEra = true;
         // Handle .zip extension if present.
         if (strtolower(substr((string) $_FILES['form_erafile']['name'], -4)) == '.zip') {
             $zip = new ZipArchive();
@@ -128,17 +129,21 @@ elseif (!empty($_FILES['form_erafile']['size'])) {
                 $zip->close();
                 if ($contents === false) {
                     $alertmsg .= xl("Unable to read file from ZIP archive") . " ";
-                    $contents = '';
+                    $shouldParseEra = false;
+                } elseif (file_put_contents($tmp_name, $contents) === false) {
+                    $alertmsg .= xl("Unable to write extracted ZIP contents") . " ";
+                    $shouldParseEra = false;
                 }
-
-                file_put_contents($tmp_name, $contents);
             } else {
                 $alertmsg .= xl("Unable to open ZIP archive") . " ";
+                $shouldParseEra = false;
             }
         }
-        $parseResult = ParseERA::parseERA($tmp_name, 'era_payments_callback');
-        if (is_string($parseResult)) {
-            $alertmsg .= $parseResult;
+        if ($shouldParseEra) {
+            $parseResult = ParseERA::parseERA($tmp_name, 'era_payments_callback');
+            if (is_string($parseResult)) {
+                $alertmsg .= $parseResult;
+            }
         }
 
         // Ensure the ERA directory exists

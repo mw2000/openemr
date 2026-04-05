@@ -964,6 +964,7 @@ $session = SessionWrapperFactory::getInstance()->getActiveSession();
                                 if (!is_string($tmp_name)) {
                                     $alertmsg .= xl("Invalid file upload") . " ";
                                 } else {
+                                    $shouldParseEra = true;
                                     // Handle .zip extension if present.
                                     if (strtolower(substr((string) $_FILES['form_erafile']['name'], -4)) == '.zip') {
                                         $zip = new ZipArchive();
@@ -972,19 +973,23 @@ $session = SessionWrapperFactory::getInstance()->getActiveSession();
                                             $zip->close();
                                             if ($contents === false) {
                                                 $alertmsg .= xl("Unable to read file from ZIP archive") . " ";
-                                                $contents = '';
+                                                $shouldParseEra = false;
+                                            } elseif (file_put_contents($tmp_name, $contents) === false) {
+                                                $alertmsg .= xl("Unable to write extracted ZIP contents") . " ";
+                                                $shouldParseEra = false;
                                             }
-
-                                            file_put_contents($tmp_name, $contents);
                                         } else {
                                             $alertmsg .= xl("Unable to open ZIP archive") . " ";
+                                            $shouldParseEra = false;
                                         }
                                     }
 
                                     echo "<!-- Notes from ERA upload processing:\n";
-                                    $parseResult = ParseERA::parseERA($tmp_name, 'eob_search_era_callback');
-                                    if (is_string($parseResult)) {
-                                        $alertmsg .= $parseResult;
+                                    if ($shouldParseEra) {
+                                        $parseResult = ParseERA::parseERA($tmp_name, 'eob_search_era_callback');
+                                        if (is_string($parseResult)) {
+                                            $alertmsg .= $parseResult;
+                                        }
                                     }
                                     echo "-->\n";
                                     $erafullname = OEGlobalsBag::getInstance()->get('OE_SITE_DIR') . "/documents/era/$eraname.edi";
