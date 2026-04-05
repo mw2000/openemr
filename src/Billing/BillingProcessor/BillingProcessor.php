@@ -51,9 +51,8 @@ class BillingProcessor
     /**
      * Our logger instance that we use and also pass down
      * to the processing tasks
-     * @var
      */
-    protected $logger;
+    protected BillingLogger $logger;
 
     /**
      * The following constants are the options for processing tasks, which are the actions
