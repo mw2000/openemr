@@ -882,11 +882,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../../src/Common/Command/CreateReleaseChangelogCommand.php',
 ];
 $ignoreErrors[] = [
-    'message' => '#^Call to an undefined method Symfony\\\\Component\\\\Console\\\\Application\\:\\:addCommand\\(\\)\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/Command/SymfonyCommandRunner.php',
-];
-$ignoreErrors[] = [
     'message' => '#^Call to an undefined method object\\:\\:getBody\\(\\)\\.$#',
     'count' => 2,
     'path' => __DIR__ . '/../../src/Common/Http/oeHttpResponse.php',
@@ -1080,11 +1075,6 @@ $ignoreErrors[] = [
     'message' => '#^Call to an undefined method OpenEMR\\\\Validators\\\\ProcessingResult\\:\\:getMessages\\(\\)\\.$#',
     'count' => 1,
     'path' => __DIR__ . '/../../tests/Tests/Fixtures/MedicationDispenseFixtureManager.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Call to an undefined method Symfony\\\\Component\\\\Console\\\\Application\\:\\:addCommand\\(\\)\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../tests/Tests/Isolated/Common/Command/BackgroundServicesCommandTest.php',
 ];
 $ignoreErrors[] = [
     'message' => '#^Call to an undefined method OpenEMR\\\\Services\\\\SpreadSheetService\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:buildSpreadsheet\\(\\)\\.$#',
