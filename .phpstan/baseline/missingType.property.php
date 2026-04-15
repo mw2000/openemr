@@ -23532,11 +23532,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../../src/Billing/BillingProcessor/BillingLogger.php',
 ];
 $ignoreErrors[] = [
-    'message' => '#^Property OpenEMR\\\\Billing\\\\BillingProcessor\\\\BillingProcessor\\:\\:\\$logger has no type specified\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Billing/BillingProcessor/BillingProcessor.php',
-];
-$ignoreErrors[] = [
     'message' => '#^Property OpenEMR\\\\Billing\\\\BillingProcessor\\\\Tasks\\\\GeneratorHCFA\\:\\:\\$logger has no type specified\\.$#',
     'count' => 1,
     'path' => __DIR__ . '/../../src/Billing/BillingProcessor/Tasks/GeneratorHCFA.php',

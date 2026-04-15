@@ -19121,7 +19121,6 @@ $ignoreErrors[] = [
     'count' => 1,
     'path' => __DIR__ . '/../../src/Billing/BillingProcessor/Tasks/AbstractGenerator.php',
 ];
-
 $ignoreErrors[] = [
     'message' => '#^Method OpenEMR\\\\Billing\\\\BillingProcessor\\\\Tasks\\\\GeneratorHCFA\\:\\:appendToLog\\(\\) has no return type specified\\.$#',
     'count' => 1,

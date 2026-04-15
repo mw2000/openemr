@@ -282,11 +282,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../../interface/billing/billing_report.php',
 ];
 $ignoreErrors[] = [
-    'message' => '#^Part \\$webserver_root \\(mixed\\) of encapsed string cannot be cast to string\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/billing/billing_report.php',
-];
-$ignoreErrors[] = [
     'message' => '#^Part \\$srcdir \\(mixed\\) of encapsed string cannot be cast to string\\.$#',
     'count' => 1,
     'path' => __DIR__ . '/../../interface/billing/billing_tracker.php',
@@ -3267,11 +3262,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../../interface/reports/cqm.php',
 ];
 $ignoreErrors[] = [
-    'message' => '#^Part \\$webserver_root \\(mixed\\) of encapsed string cannot be cast to string\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/reports/criteria.tab.php',
-];
-$ignoreErrors[] = [
     'message' => '#^Part \\$srcdir \\(mixed\\) of encapsed string cannot be cast to string\\.$#',
     'count' => 3,
     'path' => __DIR__ . '/../../interface/reports/custom_report_range.php',
@@ -5407,7 +5397,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../../src/Patient/Cards/InsuranceViewCard.php',
 ];
 $ignoreErrors[] = [
-    'message' => '#^Part \\$params\\[\\$key\\] \\(array\\<mixed\\>\\|bool\\|float\\|int\\|string\\|null\\) of encapsed string cannot be cast to string\\.$#',
+    'message' => '#^Part \\$params\\[\\$key\\] \\(array\\|bool\\|float\\|int\\|string\\|null\\) of encapsed string cannot be cast to string\\.$#',
     'count' => 1,
     'path' => __DIR__ . '/../../src/RestControllers/AuthorizationController.php',
 ];
