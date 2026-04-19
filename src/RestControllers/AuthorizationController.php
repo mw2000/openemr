@@ -427,11 +427,15 @@ class AuthorizationController
         } catch (JsonException $exception) {
             $this->getSystemLogger()->error("Exception occurred " . $exception->getMessage(), ['trace' => $exception->getTraceAsString()]);
             $this->session->invalidate();
-            return (new OAuthServerException('No JSON body', 0, 'invalid_client_metadata'))->generateHttpResponse($response);
+            $response = (new OAuthServerException('No JSON body', 0, 'invalid_client_metadata'))->generateHttpResponse($response);
+            $response->getBody()->rewind();
+            return $response;
         } catch (OAuthServerException $exception) {
             $this->getSystemLogger()->error("Exception occurred " . $exception->getMessage(), ['trace' => $exception->getTraceAsString()]);
             $this->session->invalidate();
-            return $exception->generateHttpResponse($response);
+            $response = $exception->generateHttpResponse($response);
+            $response->getBody()->rewind();
+            return $response;
         }
     }
 
